@@ -1,0 +1,58 @@
+name: eshop_app
+description: A new Flutter project.
+
+
+publish_to: 'none' 
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  get:
+  hexcolor:
+  eva_icons_flutter :
+  flutter_rating_bar:
+
+  
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+
+flutter:
+
+  
+  uses-material-design: true
+
+ 
+  assets:
+    - assets/images/
+    - assets/images/shoes_2.png
+ 
+  # example:
+  fonts:
+  #   - family: Lato Regular
+  #     fonts:
+  #       - asset: fonts/Lato-Regular.ttf
+  #   - family : lato Bold
+  #     fonts:
+  #       - asset: fonts/Lato-Bold.ttf
+        
+    - family: Lato Regular
+      fonts:
+        - asset: fonts/Lato-Regular.ttf
+    - family: Lato
+      fonts:
+        - asset: fonts/Lato-Bold.ttf
+         
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages

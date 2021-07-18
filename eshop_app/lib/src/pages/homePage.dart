@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
         title: Row(
           children: [
             SizedBox(
-              width: 160,
+              width: 110,
             ),
             Text(
               'X',

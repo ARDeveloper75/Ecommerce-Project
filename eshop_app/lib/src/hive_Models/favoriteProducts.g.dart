@@ -17,24 +17,27 @@ class FavoriteProductsAdapter extends TypeAdapter<FavoriteProducts> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return FavoriteProducts(
-      discount: fields[0] as int,
-      price: fields[2] as double,
-      rating: fields[3] as double,
-      title: fields[1] as String,
+      id: fields[0] as String,
+      discount: fields[1] as int,
+      price: fields[3] as double,
+      rating: fields[4] as double,
+      title: fields[2] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, FavoriteProducts obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
-      ..write(obj.discount)
+      ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.title)
+      ..write(obj.discount)
       ..writeByte(2)
-      ..write(obj.price)
+      ..write(obj.title)
       ..writeByte(3)
+      ..write(obj.price)
+      ..writeByte(4)
       ..write(obj.rating);
   }
 

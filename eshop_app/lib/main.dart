@@ -4,9 +4,7 @@ import 'package:get/get.dart';
 
 import 'src/app.dart';
 
-
 final _ = Get.put(ServiceController(), permanent: true);
-
 
 void main() async {
   await initAppConfig();

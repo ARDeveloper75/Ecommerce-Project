@@ -1,4 +1,3 @@
-import 'package:eshop_app/src/controllers/shopController.dart';
 import 'package:eshop_app/src/services/serviceController.dart';
 import 'package:eshop_app/src/widgets/kText.dart';
 

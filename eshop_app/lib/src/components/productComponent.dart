@@ -1,9 +1,11 @@
+import 'package:eshop_app/src/hive_Models/favoriteProducts.dart';
 import 'package:eshop_app/src/services/serviceController.dart';
 import 'package:eshop_app/src/widgets/kText.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class ProductComponent extends StatelessWidget {
   final _ = Get.put(ServiceController(), permanent: true);
@@ -26,6 +28,8 @@ class ProductComponent extends StatelessWidget {
               itemCount: 4,
               itemBuilder: (BuildContext context, int index) {
                 final item = _.shopC.products[index];
+                final favoriteBox =
+                    Hive.box<FavoriteProducts>('favoriteProducts');
                 return Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Container(
@@ -75,17 +79,31 @@ class ProductComponent extends StatelessWidget {
                         Positioned(
                           top: 12,
                           right: 12,
-                          child: Container(
-                            padding: EdgeInsets.all(4),
-                            decoration: BoxDecoration(
-                                color: Colors.red.withOpacity(.8),
-                                shape: BoxShape.circle),
-                            child: Center(
-                              child: Icon(
-                                EvaIcons.heart,
-                                size: 14,
-                                color: Colors.white,
-                              ),
+                          child: GestureDetector(
+                            onTap: () =>
+                                _.productManageC.manageFavorite(product: item),
+                            child: ValueListenableBuilder(
+                              builder:
+                                  (BuildContext context, value, Widget? child) {
+                                return Container(
+                                  padding: EdgeInsets.all(4),
+                                  decoration: BoxDecoration(
+                                      color: favoriteBox.containsKey(item['id'])
+                                          ? Colors.red.withOpacity(.8)
+                                          : Colors.grey.withOpacity(.8),
+                                      shape: BoxShape.circle),
+                                  child: Center(
+                                    child: Icon(
+                                      favoriteBox.containsKey(item['id'])
+                                          ? EvaIcons.heart
+                                          : EvaIcons.heartOutline,
+                                      size: 14,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                );
+                              },
+                              valueListenable: favoriteBox.listenable(),
                             ),
                           ),
                         ),
@@ -118,7 +136,7 @@ class ProductComponent extends StatelessWidget {
                                       initialRating:
                                           double.parse('${item['rating']}'),
                                       direction: Axis.horizontal,
-                                      allowHalfRating: false,
+                                      allowHalfRating: true,
                                       itemCount: 5,
                                       itemPadding:
                                           EdgeInsets.symmetric(horizontal: 4.0),

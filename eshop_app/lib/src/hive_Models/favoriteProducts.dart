@@ -5,19 +5,24 @@ part 'favoriteProducts.g.dart';
 @HiveType(typeId: 1)
 class FavoriteProducts {
   @HiveField(0)
+  String id;
+  //----------------------------------------------------------
+
+  @HiveField(1)
   int discount;
 
   //----------------------------------------------------------
-  @HiveField(1)
+  @HiveField(2)
   String title;
   //----------------------------------------------------------
-  @HiveField(2)
+  @HiveField(3)
   double price;
   //----------------------------------------------------------
-  @HiveField(3)
+  @HiveField(4)
   double rating;
 
   FavoriteProducts({
+    required this.id,
     required this.discount,
     required this.price,
     required this.rating,

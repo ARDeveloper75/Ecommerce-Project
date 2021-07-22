@@ -1,9 +1,12 @@
+import 'package:eshop_app/src/services/serviceController.dart';
 import 'package:eshop_app/src/widgets/kText.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get.dart';
 
 class ProductComponent extends StatelessWidget {
+  final _ = Get.put(ServiceController(), permanent: true);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,6 +25,7 @@ class ProductComponent extends StatelessWidget {
               primary: false,
               itemCount: 4,
               itemBuilder: (BuildContext context, int index) {
+                final item = _.shopC.products[index];
                 return Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Container(
@@ -61,7 +65,7 @@ class ProductComponent extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(18)),
                             child: Center(
                               child: KText(
-                                text: '35%',
+                                text: '${item['discount']}%',
                                 color: Colors.black54,
                                 fontSize: 13,
                               ),
@@ -90,7 +94,7 @@ class ProductComponent extends StatelessWidget {
                             child: Column(
                               children: [
                                 KText(
-                                  text: 'Nike Air Max 20',
+                                  text: '${item['title']}',
                                   fontFamily: 'Lato Regular',
                                   fontSize: 13,
                                   color: Colors.black,
@@ -99,7 +103,7 @@ class ProductComponent extends StatelessWidget {
                                   height: 10,
                                 ),
                                 KText(
-                                  text: '\$ 2900.00',
+                                  text: '\$${item['price']}',
                                   fontFamily: 'Lato Bold',
                                   fontSize: 14,
                                   color: Colors.black,
@@ -110,8 +114,9 @@ class ProductComponent extends StatelessWidget {
                                 Row(
                                   children: [
                                     RatingBar.builder(
-                                      itemSize: 10,
-                                      initialRating: 3,
+                                      itemSize: 12,
+                                      initialRating:
+                                          double.parse('${item['rating']}'),
                                       direction: Axis.horizontal,
                                       allowHalfRating: false,
                                       itemCount: 5,
@@ -124,6 +129,12 @@ class ProductComponent extends StatelessWidget {
                                       onRatingUpdate: (rating) {
                                         print(rating);
                                       },
+                                    ),
+                                    Text(
+                                      '(${item['rating']})',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                      ),
                                     ),
                                   ],
                                 )

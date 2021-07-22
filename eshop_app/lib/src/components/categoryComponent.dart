@@ -1,4 +1,5 @@
 import 'package:eshop_app/src/controllers/shopController.dart';
+import 'package:eshop_app/src/services/serviceController.dart';
 import 'package:eshop_app/src/widgets/kText.dart';
 
 import 'package:flutter/material.dart';
@@ -6,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class CategoryComponent extends StatelessWidget {
-  final _shopC = Get.put(ShopController(), permanent: true);
+  final _ = Get.put(ServiceController(), permanent: true);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,9 +40,9 @@ class CategoryComponent extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
                 primary: false,
-                itemCount: _shopC.category.length,
+                itemCount: _.shopC.category.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final item = _shopC.category[index];
+                  final item = _.shopC.category[index];
                   return Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Container(

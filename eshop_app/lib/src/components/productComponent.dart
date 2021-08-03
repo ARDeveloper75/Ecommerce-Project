@@ -108,56 +108,57 @@ class ProductComponent extends StatelessWidget {
                           ),
                         ),
                         Positioned(
-                            bottom: 20,
-                            child: Column(
-                              children: [
-                                KText(
-                                  text: '${item['title']}',
-                                  fontFamily: 'Lato Regular',
-                                  fontSize: 13,
-                                  color: Colors.black,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                KText(
-                                  text: '\$${item['price']}',
-                                  fontFamily: 'Lato Bold',
-                                  fontSize: 14,
-                                  color: Colors.black,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                  children: [
-                                    RatingBar.builder(
-                                      itemSize: 12,
-                                      initialRating:
-                                          double.parse('${item['rating']}'),
-                                      direction: Axis.horizontal,
-                                      allowHalfRating: true,
-                                      itemCount: 5,
-                                      itemPadding:
-                                          EdgeInsets.symmetric(horizontal: 4.0),
-                                      itemBuilder: (context, _) => Icon(
-                                        Icons.star,
-                                        color: Colors.amber,
-                                      ),
-                                      onRatingUpdate: (rating) {
-                                        print(rating);
-                                      },
+                          bottom: 20,
+                          child: Column(
+                            children: [
+                              KText(
+                                text: '${item['title']}',
+                                fontFamily: 'Lato Regular',
+                                fontSize: 13,
+                                color: Colors.black,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              KText(
+                                text: '\$${item['price']}',
+                                fontFamily: 'Lato Bold',
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  RatingBar.builder(
+                                    itemSize: 12,
+                                    initialRating:
+                                        double.parse('${item['rating']}'),
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemCount: 5,
+                                    itemPadding:
+                                        EdgeInsets.symmetric(horizontal: 4.0),
+                                    itemBuilder: (context, _) => Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
                                     ),
-                                    Text(
-                                      '(${item['rating']})',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                      ),
+                                    onRatingUpdate: (rating) {
+                                      print(rating);
+                                    },
+                                  ),
+                                  Text(
+                                    '(${item['rating']})',
+                                    style: TextStyle(
+                                      fontSize: 12,
                                     ),
-                                  ],
-                                )
-                              ],
-                            ))
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),

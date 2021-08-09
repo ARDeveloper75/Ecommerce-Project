@@ -3,9 +3,8 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 
 class ProductManageController extends GetxController {
+  final favoriteBox = Hive.box<FavoriteProducts>('favoriteProducts');
   manageFavorite({required Map<String, dynamic> product}) async {
-    final favoriteBox = Hive.box<FavoriteProducts>('favoriteProducts');
-
     if (favoriteBox.containsKey(product['id'])) {
       favoriteBox.delete(product['id']);
     } else {

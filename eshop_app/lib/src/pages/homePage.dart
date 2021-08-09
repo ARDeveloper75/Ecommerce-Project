@@ -1,5 +1,7 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:eshop_app/src/components/categoryComponent.dart';
 import 'package:eshop_app/src/components/productComponent.dart';
+import 'package:eshop_app/src/pages/cartPage.dart';
 import 'package:eshop_app/src/pages/productFavoritePage.dart';
 import 'package:eshop_app/src/widgets/kText.dart';
 
@@ -71,9 +73,11 @@ class HomePage extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(() => CartPage());
+            },
             icon: Icon(
-              EvaIcons.searchOutline,
+              EvaIcons.shoppingCartOutline,
               size: 23,
             ),
           ),
@@ -86,6 +90,17 @@ class HomePage extends StatelessWidget {
             ProductComponent(),
           ],
         ),
+      ),
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Colors.transparent,
+        items: [
+          Icon(Icons.shopping_bag_outlined, size: 30),
+          Icon(Icons.list, size: 30),
+          Icon(Icons.person_outlined, size: 30),
+        ],
+        onTap: (index) {
+          //Handle button tap
+        },
       ),
     );
   }

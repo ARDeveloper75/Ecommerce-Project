@@ -19,12 +19,15 @@ dependencies:
   hive_flutter:
   path_provider:
   uuid:
+  curved_navigation_bar:  
   cupertino_icons: ^1.0.2
+  collection:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   hive_generator:
+  json_serializable:
   build_runner:
 
 flutter:
@@ -32,7 +35,7 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/images/shoes_2.png
+    - assets/images/bottom_row.png
 
   # example:
   fonts:

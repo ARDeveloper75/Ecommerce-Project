@@ -7,16 +7,16 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 
 class HiveController extends GetxController {
-  initDatabase() async {
+  Future<void> initDatabase() async {
     Directory? appDocDir = await getApplicationDocumentsDirectory();
 
-    await Hive.initFlutter(appDocDir.path);
+    Hive.init(appDocDir.path);
     await registerBoxesAndAdapters();
   }
 
   Future<void> registerBoxesAndAdapters() async {
-    await Hive.openBox<FavoriteProducts>('favoriteProducts');
     Hive.registerAdapter(FavoriteProductsAdapter());
-    print('Hive Initilized');
+    await Hive.openBox<FavoriteProducts>('favoriteProducts');
+    print('Hive C Work');
   }
 }

@@ -7,6 +7,7 @@ class KText extends StatelessWidget {
 
   final String? fontFamily;
   final int? maxLines;
+  final FontWeight? fontWeight;
 
   KText({
     required this.text,
@@ -14,6 +15,7 @@ class KText extends StatelessWidget {
     this.fontSize,
     this.fontFamily,
     this.maxLines,
+    this.fontWeight,
   });
 
   @override
@@ -24,6 +26,7 @@ class KText extends StatelessWidget {
         fontSize: fontSize != null ? fontSize : 14,
         fontFamily: fontFamily != null ? fontFamily : 'Lato Regular',
         color: color != null ? color : Colors.black54,
+        fontWeight: fontWeight != null ? fontWeight : FontWeight.normal,
       ),
       maxLines: maxLines,
       overflow: TextOverflow.ellipsis,

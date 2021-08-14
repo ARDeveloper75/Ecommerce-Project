@@ -3,8 +3,7 @@ import 'package:get/get.dart';
 
 import 'src/app.dart';
 import 'src/controllers/hiveController.dart';
-
-// final _ = Get.put(ServiceController(), permanent: true);
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   await initAppConfig();
@@ -13,5 +12,11 @@ void main() async {
 
 Future<void> initAppConfig() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initFirebase();
   await Get.put(HiveController(), permanent: true).initDatabase();
+}
+
+Future<void> initFirebase() async {
+  await Firebase.initializeApp();
+  print('FireBase Work');
 }

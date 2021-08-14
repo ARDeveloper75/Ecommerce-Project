@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1000551525718",
+    "project_id": "ecommerce-app-109df",
+    "storage_bucket": "ecommerce-app-109df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1000551525718:android:6281a4564a8335d21cbaf7",
+        "android_client_info": {
+          "package_name": "com.fsdramjan.eshop_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1000551525718-kadgh9njdltpeqc7isd41lej4q33o1jd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVdvhSHPqFuYRFm5eYRb_-So1bh_NazqQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1000551525718-kadgh9njdltpeqc7isd41lej4q33o1jd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

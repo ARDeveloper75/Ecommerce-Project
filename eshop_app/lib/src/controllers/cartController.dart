@@ -37,6 +37,7 @@ class CartController extends GetxController {
       titleStyle: TextStyle(fontFamily: 'Lato Bold'),
       middleText: 'want to remove this cart?',
       actions: [
+        // ignore: deprecated_member_use
         FlatButton(
           onPressed: () {
             Get.back();
@@ -46,6 +47,7 @@ class CartController extends GetxController {
             color: Colors.grey,
           ),
         ),
+        // ignore: deprecated_member_use
         FlatButton(
           onPressed: () {
             // Get.snackbar('Succuessfully', 'Cart remove');

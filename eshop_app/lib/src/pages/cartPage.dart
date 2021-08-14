@@ -1,5 +1,6 @@
 import 'package:eshop_app/src/services/serviceController.dart';
 import 'package:eshop_app/src/widgets/kText.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,7 +10,29 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Padding(
+          padding: EdgeInsets.only(left: 80),
+          child: KText(
+            text: 'My Cart',
+            color: Colors.black,
+            fontSize: 20,
+          ),
+        ),
+        leading: Icon(
+          Icons.arrow_back,
+          color: Colors.black,
+        ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 15),
+            child: Icon(
+              EvaIcons.search,
+              color: Colors.black,
+            ),
+          ),
+        ],
+      ),
       body: Obx(
         () => _.cartC.carts.isEmpty
             ? Center(
@@ -27,6 +50,9 @@ class CartPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        SizedBox(
+                          height: 10,
+                        ),
                         ListView.builder(
                           shrinkWrap: true,
                           primary: false,
@@ -34,8 +60,19 @@ class CartPage extends StatelessWidget {
                           itemBuilder: (BuildContext context, int index) {
                             final item = _.cartC.carts[index];
                             return Container(
-                              height: 80,
+                              height: 90,
                               width: Get.width,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.shade300,
+                                    spreadRadius: .50,
+                                    blurRadius: 50,
+                                  ),
+                                ],
+                              ),
                               child: Column(
                                 children: [
                                   Row(
@@ -70,7 +107,6 @@ class CartPage extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  Divider(),
                                 ],
                               ),
                             );

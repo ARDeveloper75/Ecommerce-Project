@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eshop_app/src/hive_Models/favoriteProducts.dart';
 import 'package:eshop_app/src/pages/singleProductPage.dart';
 import 'package:eshop_app/src/services/serviceController.dart';
@@ -17,166 +18,307 @@ class ProductComponent extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.all(8.0),
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 2,
-                crossAxisSpacing: 2,
-                childAspectRatio: .60,
-              ),
-              shrinkWrap: true,
-              primary: false,
-              itemCount: 4,
-              itemBuilder: (BuildContext context, int index) {
-                final item = _.shopC.products[index];
-                final favoriteBox =
-                    Hive.box<FavoriteProducts>('favoriteProducts');
-                return Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () => Get.to(
-                      () => SingleProductPage(
-                        item: item,
-                      ),
+            child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                stream: _.firebaseC.getProducts(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return placeHolder();
+                  }
+                  return GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 2,
+                      crossAxisSpacing: 2,
+                      childAspectRatio: .60,
                     ),
-                    child: Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        clipBehavior: Clip.none,
-                        children: [
-                          CircleAvatar(
-                            backgroundColor:
-                                Colors.blue.shade100.withOpacity(.80),
-                            radius: 65,
-                          ),
-                          CircleAvatar(
-                            backgroundColor: Colors.white,
-                            radius: 58,
-                          ),
-                          CircleAvatar(
-                            backgroundColor:
-                                Colors.blue.shade100.withOpacity(.80),
-                            radius: 56,
-                          ),
-                          Positioned(
-                            top: 12,
-                            left: 12,
-                            child: Container(
-                              padding: EdgeInsets.all(4),
-                              height: 22,
-                              width: 42,
-                              decoration: BoxDecoration(
-                                  color: Colors.blue.shade100.withOpacity(.80),
-                                  borderRadius: BorderRadius.circular(18)),
-                              child: Center(
-                                child: KText(
-                                  text: '${item['discount']}%',
-                                  color: Colors.black54,
-                                  fontSize: 13,
-                                ),
-                              ),
+                    shrinkWrap: true,
+                    primary: false,
+                    itemCount: snapshot.data!.size,
+                    itemBuilder: (BuildContext context, int index) {
+                      final item = snapshot.data!.docs[index].data();
+                      final favoriteBox =
+                          Hive.box<FavoriteProducts>('favoriteProducts');
+                      return Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: GestureDetector(
+                          onTap: () => Get.to(
+                            () => SingleProductPage(
+                              item: item,
                             ),
                           ),
-                          Positioned(
-                            top: 12,
-                            right: 12,
-                            child: GestureDetector(
-                              onTap: () => _.productManageC
-                                  .manageFavorite(product: item),
-                              child: ValueListenableBuilder(
-                                builder: (BuildContext context, value,
-                                    Widget? child) {
-                                  return Container(
-                                    padding: EdgeInsets.all(4),
-                                    decoration: BoxDecoration(
-                                        color:
-                                            favoriteBox.containsKey(item['id'])
-                                                ? Colors.red.withOpacity(.8)
-                                                : Colors.grey.withOpacity(.8),
-                                        shape: BoxShape.circle),
-                                    child: Center(
-                                      child: Icon(
-                                        favoriteBox.containsKey(item['id'])
-                                            ? EvaIcons.heart
-                                            : EvaIcons.heartOutline,
-                                        size: 14,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                valueListenable: favoriteBox.listenable(),
-                              ),
+                          child: Container(
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(30),
                             ),
-                          ),
-                          Positioned(
-                            bottom: 20,
-                            child: Column(
+                            child: Stack(
+                              alignment: Alignment.center,
+                              clipBehavior: Clip.none,
                               children: [
-                                KText(
-                                  text: '${item['title']}',
-                                  fontFamily: 'Lato Regular',
-                                  fontSize: 13,
-                                  color: Colors.black,
+                                CircleAvatar(
+                                  backgroundColor:
+                                      Colors.blue.shade100.withOpacity(.80),
+                                  radius: 65,
                                 ),
-                                SizedBox(
-                                  height: 10,
+                                CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  radius: 58,
                                 ),
-                                KText(
-                                  text: '\$${item['price']}',
-                                  fontFamily: 'Lato Bold',
-                                  fontSize: 14,
-                                  color: Colors.black,
+                                CircleAvatar(
+                                  backgroundColor:
+                                      Colors.blue.shade100.withOpacity(.80),
+                                  radius: 56,
                                 ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                  children: [
-                                    RatingBar.builder(
-                                      itemSize: 12,
-                                      initialRating:
-                                          double.parse('${item['rating']}'),
-                                      direction: Axis.horizontal,
-                                      allowHalfRating: true,
-                                      itemCount: 5,
-                                      itemPadding:
-                                          EdgeInsets.symmetric(horizontal: 4.0),
-                                      itemBuilder: (context, _) => Icon(
-                                        Icons.star,
-                                        color: Colors.amber,
+                                Positioned(
+                                  top: 12,
+                                  left: 12,
+                                  child: Container(
+                                    padding: EdgeInsets.all(4),
+                                    height: 22,
+                                    width: 42,
+                                    decoration: BoxDecoration(
+                                        color: Colors.blue.shade100
+                                            .withOpacity(.80),
+                                        borderRadius:
+                                            BorderRadius.circular(18)),
+                                    child: Center(
+                                      child: KText(
+                                        text: '${item['discount']}%',
+                                        color: Colors.black54,
+                                        fontSize: 13,
                                       ),
-                                      onRatingUpdate: (rating) {
-                                        print(rating);
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 12,
+                                  right: 12,
+                                  child: GestureDetector(
+                                    onTap: () => _.productManageC
+                                        .manageFavorite(product: item),
+                                    child: ValueListenableBuilder(
+                                      builder: (BuildContext context, value,
+                                          Widget? child) {
+                                        return Container(
+                                          padding: EdgeInsets.all(4),
+                                          decoration: BoxDecoration(
+                                              color: favoriteBox
+                                                      .containsKey(item['id'])
+                                                  ? Colors.red.withOpacity(.8)
+                                                  : Colors.grey.withOpacity(.8),
+                                              shape: BoxShape.circle),
+                                          child: Center(
+                                            child: Icon(
+                                              favoriteBox
+                                                      .containsKey(item['id'])
+                                                  ? EvaIcons.heart
+                                                  : EvaIcons.heartOutline,
+                                              size: 14,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        );
                                       },
+                                      valueListenable: favoriteBox.listenable(),
                                     ),
-                                    Text(
-                                      '(${item['rating']})',
-                                      style: TextStyle(
-                                        fontSize: 12,
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 20,
+                                  child: Column(
+                                    children: [
+                                      KText(
+                                        text: '${item['title']}',
+                                        fontFamily: 'Lato Regular',
+                                        fontSize: 13,
+                                        color: Colors.black,
                                       ),
-                                    ),
-                                  ],
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      KText(
+                                        text: '\$${item['price']}',
+                                        fontFamily: 'Lato Bold',
+                                        fontSize: 14,
+                                        color: Colors.black,
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: [
+                                          RatingBar.builder(
+                                            itemSize: 12,
+                                            initialRating: double.parse(
+                                                '${item['rating']}'),
+                                            direction: Axis.horizontal,
+                                            allowHalfRating: true,
+                                            itemCount: 5,
+                                            itemPadding: EdgeInsets.symmetric(
+                                                horizontal: 4.0),
+                                            itemBuilder: (context, _) => Icon(
+                                              Icons.star,
+                                              color: Colors.amber,
+                                            ),
+                                            onRatingUpdate: (rating) {
+                                              print(rating);
+                                            },
+                                          ),
+                                          Text(
+                                            '(${item['rating']})',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
+                        ),
+                      );
+                    },
+                  );
+                }),
           ),
         ],
       ),
+    );
+  }
+
+  Widget placeHolder() {
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisSpacing: 2,
+        crossAxisSpacing: 2,
+        childAspectRatio: .60,
+      ),
+      shrinkWrap: true,
+      primary: false,
+      itemCount: 8,
+      itemBuilder: (BuildContext context, int index) {
+        return Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Container(
+            height: 30,
+            width: 30,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Stack(
+              alignment: Alignment.center,
+              clipBehavior: Clip.none,
+              children: [
+                CircleAvatar(
+                  backgroundColor: Colors.blue.shade100.withOpacity(.80),
+                  radius: 65,
+                ),
+                CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 58,
+                ),
+                CircleAvatar(
+                  backgroundColor: Colors.blue.shade100.withOpacity(.80),
+                  radius: 56,
+                ),
+                Positioned(
+                  top: 12,
+                  left: 12,
+                  child: Container(
+                    padding: EdgeInsets.all(4),
+                    height: 22,
+                    width: 42,
+                    decoration: BoxDecoration(
+                        color: Colors.blue.shade100.withOpacity(.80),
+                        borderRadius: BorderRadius.circular(18)),
+                    child: Center(
+                      child: KText(
+                        text: '',
+                        color: Colors.black54,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 12,
+                  right: 12,
+                  child: Container(
+                    padding: EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(.8),
+                        shape: BoxShape.circle),
+                    child: Center(
+                      child: Icon(
+                        EvaIcons.heartOutline,
+                        size: 14,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 20,
+                  child: Column(
+                    children: [
+                      KText(
+                        text: '',
+                        fontFamily: 'Lato Regular',
+                        fontSize: 13,
+                        color: Colors.black,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      KText(
+                        text: '',
+                        fontFamily: 'Lato Bold',
+                        fontSize: 14,
+                        color: Colors.black,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          RatingBar.builder(
+                            itemSize: 12,
+                            initialRating: double.parse(''),
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                            itemBuilder: (context, _) => Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            ),
+                            onRatingUpdate: (rating) {
+                              print(rating);
+                            },
+                          ),
+                          Text(
+                            '',
+                            style: TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

@@ -11,6 +11,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class ProductComponent extends StatelessWidget {
   final _ = Get.put(ServiceController(), permanent: true);
+
+  // Time 1.3.11
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -216,17 +219,26 @@ class ProductComponent extends StatelessWidget {
               alignment: Alignment.center,
               clipBehavior: Clip.none,
               children: [
-                CircleAvatar(
-                  backgroundColor: Colors.blue.shade100.withOpacity(.80),
-                  radius: 65,
+                Positioned(
+                  top: 60,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.blue.shade100.withOpacity(.80),
+                    radius: 65,
+                  ),
                 ),
-                CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 58,
+                Positioned(
+                  top: 67,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 58,
+                  ),
                 ),
-                CircleAvatar(
-                  backgroundColor: Colors.blue.shade100.withOpacity(.80),
-                  radius: 56,
+                Positioned(
+                  top: 69,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.blue.shade100.withOpacity(.80),
+                    radius: 56,
+                  ),
                 ),
                 Positioned(
                   top: 12,
@@ -265,32 +277,50 @@ class ProductComponent extends StatelessWidget {
                   ),
                 ),
                 Positioned(
+                  top: 210,
                   bottom: 20,
                   child: Column(
                     children: [
-                      KText(
-                        text: '',
-                        fontFamily: 'Lato Regular',
-                        fontSize: 13,
-                        color: Colors.black,
+                      Container(
+                        padding: EdgeInsets.all(4),
+                        height: 10,
+                        width: 80,
+                        decoration: BoxDecoration(
+                            color: Colors.blue.shade100.withOpacity(.50),
+                            borderRadius: BorderRadius.circular(18)),
+                        child: Center(
+                          child: KText(
+                            text: '',
+                            color: Colors.black54,
+                            fontSize: 13,
+                          ),
+                        ),
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
-                      KText(
-                        text: '',
-                        fontFamily: 'Lato Bold',
-                        fontSize: 14,
-                        color: Colors.black,
+                      Container(
+                        padding: EdgeInsets.all(4),
+                        height: 10,
+                        width: 60,
+                        decoration: BoxDecoration(
+                            color: Colors.blue.shade100.withOpacity(.50),
+                            borderRadius: BorderRadius.circular(18)),
+                        child: Center(
+                          child: KText(
+                            text: '',
+                            color: Colors.black54,
+                            fontSize: 13,
+                          ),
+                        ),
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 15,
                       ),
                       Row(
                         children: [
                           RatingBar.builder(
                             itemSize: 12,
-                            initialRating: double.parse(''),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,

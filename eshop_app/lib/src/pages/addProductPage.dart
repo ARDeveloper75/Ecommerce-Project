@@ -219,8 +219,8 @@ class AddProductPage extends StatelessWidget {
         ),
         child: TextField(
           keyboardType: TextInputType.text,
-          controller: titleC,
-          // onChanged: _.addProductC.title,
+          // controller: titleC,
+          onChanged: _.addProductC.title,
           cursorColor: Colors.green,
           style: GoogleFonts.lato(
             color: Colors.black,
@@ -278,8 +278,8 @@ class AddProductPage extends StatelessWidget {
         ),
         child: TextField(
           keyboardType: TextInputType.number,
-          controller: priceC,
-          // onChanged: _.addProductC.price,
+          // controller: priceC,
+          onChanged: _.addProductC.price,
           cursorColor: Colors.green,
           style: GoogleFonts.lato(
             color: Colors.black,
@@ -337,8 +337,8 @@ class AddProductPage extends StatelessWidget {
         ),
         child: TextField(
           keyboardType: TextInputType.number,
-          controller: discountC,
-          // onChanged: _.addProductC.discount,
+          // controller: discountC,
+          onChanged: _.addProductC.discount,
           cursorColor: Colors.green,
           style: GoogleFonts.lato(
             color: Colors.black,
@@ -396,8 +396,8 @@ class AddProductPage extends StatelessWidget {
         ),
         child: TextField(
           keyboardType: TextInputType.number,
-          controller: ratingC,
-          // onChanged: _.addProductC.rating,
+          // controller: ratingC,
+          onChanged: _.addProductC.rating,
           cursorColor: Colors.green,
           style: GoogleFonts.lato(
             color: Colors.black,
@@ -455,8 +455,8 @@ class AddProductPage extends StatelessWidget {
         ),
         child: TextField(
           keyboardType: TextInputType.url,
-          controller: imageUrlC,
-          // onChanged: _.addProductC.imageUrl,
+          // controller: imageUrlC,
+          onChanged: _.addProductC.imageUrl,
           cursorColor: Colors.green,
           style: GoogleFonts.lato(
             color: Colors.black,
@@ -514,8 +514,8 @@ class AddProductPage extends StatelessWidget {
         ),
         child: TextField(
           keyboardType: TextInputType.text,
-          controller: descriptionC,
-          // onChanged: _.addProductC.description,
+          // controller: descriptionC,
+          onChanged: _.addProductC.description,
           maxLines: 100,
           cursorColor: Colors.green,
           style: GoogleFonts.lato(

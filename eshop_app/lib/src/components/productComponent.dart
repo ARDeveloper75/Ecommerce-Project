@@ -91,7 +91,7 @@ class ProductComponent extends StatelessWidget {
                                   top: 57,
                                   child: Image.network(
                                     '${item['imageUrl']}',
-                                    scale: 5,
+                                    scale: 17,
                                   ),
                                 ),
                                 Positioned(

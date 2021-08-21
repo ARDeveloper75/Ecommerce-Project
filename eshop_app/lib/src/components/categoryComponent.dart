@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eshop_app/src/services/serviceController.dart';
 import 'package:eshop_app/src/widgets/kText.dart';
 
@@ -35,43 +36,57 @@ class CategoryComponent extends StatelessWidget {
           ),
           Container(
             height: 60,
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                primary: false,
-                itemCount: _.shopC.category.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final item = _.shopC.category[index];
-                  return Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Container(
-                      width: 120,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              '${item['imagePath']}',
-                              color: Colors.black,
+            child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+              stream: _.firebaseC.getCatagory(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {}
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  primary: false,
+                  itemCount: snapshot.data!.size,
+                  itemBuilder: (BuildContext context, int index) {
+                    final item = snapshot.data!.docs[index].data();
+                    final id = snapshot.data!.docs[index].id;
+                    return Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        onDoubleTap: () {
+                          _.firebaseC.deleteCatagorys(id: id);
+                        },
+                        child: Container(
+                          width: 120,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Image.network(
+                                  '${item['image']}',
+                                  scale: 10,
+                                  color: Colors.black,
+                                ),
+                                SizedBox(
+                                  width: 7,
+                                ),
+                                KText(
+                                  text: '${item['title']}',
+                                  color: Colors.black,
+                                ),
+                              ],
                             ),
-                            SizedBox(
-                              width: 7,
-                            ),
-                            KText(
-                              text: '${item['title']}',
-                              color: Colors.black,
-                            ),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                }),
-          )
+                    );
+                  },
+                );
+              },
+            ),
+          ),
         ],
       ),
     );

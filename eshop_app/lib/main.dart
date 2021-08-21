@@ -5,6 +5,8 @@ import 'src/app.dart';
 import 'src/controllers/hiveController.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+//1 hour:43 minitue last watch
+
 void main() async {
   await initAppConfig();
   runApp(App());
@@ -18,5 +20,5 @@ Future<void> initAppConfig() async {
 
 Future<void> initFirebase() async {
   await Firebase.initializeApp();
-  print('FireBase Work');
+  print('FireBase C Work');
 }

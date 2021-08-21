@@ -1,18 +1,47 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:eshop_app/src/components/categoryComponent.dart';
 import 'package:eshop_app/src/components/productComponent.dart';
+import 'package:eshop_app/src/pages/addProductPage.dart';
 import 'package:eshop_app/src/pages/cartPage.dart';
 import 'package:eshop_app/src/pages/productFavoritePage.dart';
+import 'package:eshop_app/src/services/serviceController.dart';
 import 'package:eshop_app/src/widgets/kText.dart';
 
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class HomePage extends StatelessWidget {
+  final _ = Get.put(ServiceController(), permanent: true);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            color: Colors.blue,
+            child: IconButton(
+              onPressed: () {
+                _.addProductC.addProduct();
+              },
+              icon: Icon(Icons.add),
+            ),
+          ),
+          Container(
+            color: Colors.green,
+            child: IconButton(
+              onPressed: () {
+                _.firebaseC.addCatagorys();
+              },
+              icon: Icon(
+                Icons.contact_page_outlined,
+              ),
+            ),
+          ),
+        ],
+      ),
       drawer: Drawer(
         child: ListView(
           children: [
@@ -91,16 +120,70 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.transparent,
-        items: [
-          Icon(Icons.shopping_bag_outlined, size: 30),
-          Icon(Icons.list, size: 30),
-          Icon(Icons.person_outlined, size: 30),
-        ],
-        onTap: (index) {
-          //Handle button tap
-        },
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            GestureDetector(
+              onTap: () {
+                Get.to(HomePage());
+              },
+              child: Container(
+                height: 60,
+                width: 50,
+                child: Icon(
+                  Icons.home_outlined,
+                  color: Colors.black54,
+                  size: 30,
+                ),
+              ),
+            ),
+            GestureDetector(
+              child: Container(
+                height: 60,
+                width: 50,
+                child: Icon(
+                  Icons.credit_card_outlined,
+                  color: Colors.black54,
+                  size: 30,
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Get.to(AddProductPage());
+              },
+              child: Container(
+                height: 50,
+                width: 60,
+                decoration: BoxDecoration(
+                  color: HexColor('3D4584'),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              ),
+            ),
+            Container(
+              height: 60,
+              width: 50,
+              child: Icon(
+                Icons.attach_money_outlined,
+                color: Colors.black54,
+                size: 30,
+              ),
+            ),
+            Icon(
+              Icons.person_outline,
+              color: Colors.black54,
+              size: 30,
+            ),
+          ],
+        ),
       ),
     );
   }

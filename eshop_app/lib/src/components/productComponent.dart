@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eshop_app/src/hive_Models/favoriteProducts.dart';
 import 'package:eshop_app/src/pages/singleProductPage.dart';
+
 import 'package:eshop_app/src/services/serviceController.dart';
 import 'package:eshop_app/src/widgets/kText.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
@@ -11,8 +12,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class ProductComponent extends StatelessWidget {
   final _ = Get.put(ServiceController(), permanent: true);
-
-  // Time 1.3.11
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,7 @@ class ProductComponent extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return placeHolder();
-                  }
+                  } else {}
                   return GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
@@ -39,6 +38,7 @@ class ProductComponent extends StatelessWidget {
                     itemCount: snapshot.data!.size,
                     itemBuilder: (BuildContext context, int index) {
                       final item = snapshot.data!.docs[index].data();
+                      final id = snapshot.data!.docs[index].id;
                       final favoriteBox =
                           Hive.box<FavoriteProducts>('favoriteProducts');
                       return Padding(
@@ -47,8 +47,12 @@ class ProductComponent extends StatelessWidget {
                           onTap: () => Get.to(
                             () => SingleProductPage(
                               item: item,
+                              id: id,
                             ),
                           ),
+                          onLongPress: () {
+                            _.firebaseC.deleteProduct(id: id);
+                          },
                           child: Container(
                             height: 30,
                             width: 30,
@@ -60,19 +64,35 @@ class ProductComponent extends StatelessWidget {
                               alignment: Alignment.center,
                               clipBehavior: Clip.none,
                               children: [
-                                CircleAvatar(
-                                  backgroundColor:
-                                      Colors.blue.shade100.withOpacity(.80),
-                                  radius: 65,
+                                Positioned(
+                                  top: 50,
+                                  child: CircleAvatar(
+                                    backgroundColor:
+                                        Colors.blue.shade100.withOpacity(.80),
+                                    radius: 65,
+                                  ),
                                 ),
-                                CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  radius: 58,
+                                Positioned(
+                                  top: 57,
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    radius: 58,
+                                  ),
                                 ),
-                                CircleAvatar(
-                                  backgroundColor:
-                                      Colors.blue.shade100.withOpacity(.80),
-                                  radius: 56,
+                                Positioned(
+                                  top: 59,
+                                  child: CircleAvatar(
+                                    backgroundColor:
+                                        Colors.blue.shade100.withOpacity(.80),
+                                    radius: 56,
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 57,
+                                  child: Image.network(
+                                    '${item['imageUrl']}',
+                                    scale: 5,
+                                  ),
                                 ),
                                 Positioned(
                                   top: 12,
@@ -90,6 +110,7 @@ class ProductComponent extends StatelessWidget {
                                       child: KText(
                                         text: '${item['discount']}%',
                                         color: Colors.black54,
+                                        fontWeight: FontWeight.w700,
                                         fontSize: 13,
                                       ),
                                     ),
@@ -99,8 +120,10 @@ class ProductComponent extends StatelessWidget {
                                   top: 12,
                                   right: 12,
                                   child: GestureDetector(
-                                    onTap: () => _.productManageC
-                                        .manageFavorite(product: item),
+                                    onTap: () =>
+                                        _.productManageC.manageFavorite(
+                                      product: item,
+                                    ),
                                     child: ValueListenableBuilder(
                                       builder: (BuildContext context, value,
                                           Widget? child) {
@@ -135,25 +158,26 @@ class ProductComponent extends StatelessWidget {
                                       KText(
                                         text: '${item['title']}',
                                         fontFamily: 'Lato Regular',
-                                        fontSize: 13,
+                                        fontSize: 19,
                                         color: Colors.black,
                                       ),
                                       SizedBox(
-                                        height: 10,
+                                        height: 15,
                                       ),
                                       KText(
                                         text: '\$${item['price']}',
                                         fontFamily: 'Lato Bold',
-                                        fontSize: 14,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
                                         color: Colors.black,
                                       ),
                                       SizedBox(
-                                        height: 10,
+                                        height: 15,
                                       ),
                                       Row(
                                         children: [
                                           RatingBar.builder(
-                                            itemSize: 12,
+                                            itemSize: 15,
                                             initialRating: double.parse(
                                                 '${item['rating']}'),
                                             direction: Axis.horizontal,

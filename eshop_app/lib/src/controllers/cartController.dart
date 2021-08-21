@@ -7,17 +7,18 @@ import 'package:collection/collection.dart' show IterableExtension;
 
 class CartController extends GetxController {
   final carts = RxList<Cart>();
-  void addToCart({required Map<String, dynamic> item}) async {
+  void addToCart(
+      {required Map<String, dynamic> item, required String id}) async {
     final cartItem = Cart(
-      id: item['id'],
+      id: id,
       title: item['title'],
       image: 'N/A',
       price: item['price'],
       quantity: 1,
     );
     carts.add(cartItem);
-    await Future.delayed(Duration(seconds: 2));
-    Get.snackbar('Succuessfully', 'Product Added');
+    // await Future.delayed(Duration(seconds: 2));
+    Get.snackbar('Succuessfully', 'Cart Added');
     // Get.to(() => CartPage());
   }
 
@@ -53,6 +54,8 @@ class CartController extends GetxController {
             // Get.snackbar('Succuessfully', 'Cart remove');
             carts.removeWhere((item) => item.id == id);
             Get.back();
+            Get.snackbar('Succeed', 'Cart removed');
+            print('delete');
           },
           child: KText(
             text: 'Confirm',

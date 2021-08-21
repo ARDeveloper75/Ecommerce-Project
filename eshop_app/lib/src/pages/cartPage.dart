@@ -19,9 +19,14 @@ class CartPage extends StatelessWidget {
             fontSize: 20,
           ),
         ),
-        leading: Icon(
-          Icons.arrow_back,
-          color: Colors.black,
+        leading: GestureDetector(
+          onTap: () {
+            Get.back();
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
         ),
         actions: [
           Padding(

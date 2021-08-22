@@ -41,7 +41,7 @@ class ProductComponent extends StatelessWidget {
                     return placeHolder();
                   } else {}
                   return GridView.builder(
-                    physics: BouncingScrollPhysics(),
+                    // physics: BouncingScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       mainAxisSpacing: 2,
@@ -106,7 +106,7 @@ class ProductComponent extends StatelessWidget {
                                   top: 57,
                                   child: Image.network(
                                     '${item['imageUrl']}',
-                                    height: 120,
+                                    width: 120,
                                   ),
                                 ),
                                 Positioned(

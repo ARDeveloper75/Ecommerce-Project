@@ -37,7 +37,7 @@ class CategoryComponent extends StatelessWidget {
           Container(
             height: 60,
             child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-              stream: _.addCatagoryC.getCatagory(),
+              // stream: _.addCatagoryC.getCatagory(),
               builder: (context, snapshot) {
                 return ListView.builder(
                   physics: BouncingScrollPhysics(),
@@ -66,11 +66,11 @@ class CategoryComponent extends StatelessWidget {
                               children: [
                                 Image.network(
                                   '${item['image']}',
-                                  scale: 10,
+                                  width: 35,
                                   color: Colors.black,
                                 ),
                                 SizedBox(
-                                  width: 7,
+                                  width: 4,
                                 ),
                                 KText(
                                   text: '${item['title']}',

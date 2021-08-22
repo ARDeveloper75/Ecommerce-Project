@@ -1,4 +1,5 @@
 import 'package:eshop_app/src/pages/cartPage.dart';
+import 'package:eshop_app/src/pages/editProductPage.dart';
 import 'package:eshop_app/src/pages/productFavoritePage.dart';
 import 'package:eshop_app/src/services/serviceController.dart';
 import 'package:eshop_app/src/widgets/kText.dart';
@@ -9,9 +10,14 @@ import 'package:hexcolor/hexcolor.dart';
 
 class SingleProductPage extends StatelessWidget {
   final _ = Get.put(ServiceController(), permanent: true);
+
   final Map<String, dynamic> item;
   final String id;
-  SingleProductPage({required this.item, required this.id});
+
+  SingleProductPage({
+    required this.item,
+    required this.id,
+  });
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -73,6 +79,13 @@ class SingleProductPage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
+              TextButton.icon(
+                onPressed: () => Get.to(
+                  EditProductPage(id: id),
+                ),
+                icon: Icon(Icons.edit),
+                label: KText(text: 'Edit Product'),
+              ),
               SizedBox(
                 height: 50,
               ),
@@ -107,9 +120,12 @@ class SingleProductPage extends StatelessWidget {
                       radius: 65,
                     ),
                     Positioned(
-                      child: Image.network(
-                        '${item['imageUrl']}',
-                        scale: 11,
+                      child: Container(
+                        clipBehavior: Clip.none,
+                        child: Image.network(
+                          '${item['imageUrl']}',
+                          width: 300,
+                        ),
                       ),
                     ),
                     Positioned(

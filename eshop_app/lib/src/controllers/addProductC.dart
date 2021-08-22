@@ -68,41 +68,29 @@ class AddProductController extends GetxController {
   //update product
 
   // update product
-  void updateProduct({required String id}) {
-    Get.defaultDialog(
-      title: '',
-      middleText: 'are you want to remove this item?',
-      actions: [
-        // ignore: deprecated_member_use
-        FlatButton(
-          onPressed: () {
-            Get.back();
-          },
-          child: KText(
-            text: 'Cancel',
-            color: Colors.grey,
-          ),
-        ),
-        // ignore: deprecated_member_use
-        FlatButton(
-          onPressed: () async {
-            await _firestore.collection('products').doc(id).update({
-              // 'title': title.value,
-              // 'price': price.value,
-              // 'discount': discount.value,
-              // 'rating': rating.value,
-              // 'description': description.value,
-            });
-            await Get.to(EditProductPage());
-            // Get.snackbar('Succeed', 'Product Update');
-            print(' => update Product page');
-          },
-          child: KText(
-            text: 'Update Product',
-            color: Colors.red,
-          ),
-        ),
-      ],
-    );
+  void updateProduct({
+    required String id,
+    String? title,
+    double? price,
+    int? discount,
+    double? rating,
+    String? description,
+  }) async {
+    try {
+      await _firestore.collection('products').doc(id).update({
+        'title': title,
+        'price': price,
+        'discount': discount,
+        'rating': rating,
+        'description': description,
+      });
+      await Get.to(EditProductPage(
+        id: id,
+      ));
+      // Get.snackbar('Succeed', 'Product Update');
+      print(id);
+    } catch (e) {
+      print(e);
+    }
   }
 }

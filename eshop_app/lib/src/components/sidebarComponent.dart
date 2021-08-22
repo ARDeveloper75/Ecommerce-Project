@@ -1,5 +1,6 @@
 import 'package:eshop_app/src/pages/addCatagoryPage.dart';
 import 'package:eshop_app/src/pages/cartPage.dart';
+import 'package:eshop_app/src/pages/dashboardPage.dart';
 import 'package:eshop_app/src/pages/homePage.dart';
 import 'package:eshop_app/src/pages/productFavoritePage.dart';
 import 'package:eshop_app/src/widgets/kText.dart';
@@ -103,7 +104,7 @@ class SidebarComponent extends StatelessWidget {
                           ),
                         ),
                         ListTile(
-                          onTap: () => print('dashboard'),
+                          onTap: () => Get.to(DashboardPage()),
                           title: KText(
                             text: 'Dashboard',
                             color: Colors.white,
@@ -119,7 +120,7 @@ class SidebarComponent extends StatelessWidget {
                         ListTile(
                           onTap: () => Get.to(AddCatagoryPage()),
                           title: KText(
-                            text: 'Catagorys',
+                            text: 'All Catagorys',
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 18,

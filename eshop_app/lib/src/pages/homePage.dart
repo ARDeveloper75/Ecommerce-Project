@@ -6,7 +6,6 @@ import 'package:eshop_app/src/pages/cartPage.dart';
 import 'package:eshop_app/src/pages/dashPage.dart';
 
 import 'package:eshop_app/src/pages/productFavoritePage.dart';
-import 'package:eshop_app/src/pages/testFlexible.dart';
 
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +71,6 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
         child: Column(
           children: [
             CategoryComponent(),
@@ -129,7 +127,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () => Get.to(TestPage()),
+              onTap: () => Get.to(HomePage()),
               child: Container(
                 height: 60,
                 width: 50,

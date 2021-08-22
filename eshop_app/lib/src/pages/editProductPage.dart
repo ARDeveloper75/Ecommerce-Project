@@ -1,4 +1,3 @@
-import 'package:eshop_app/src/pages/addCatagoryPage.dart';
 import 'package:eshop_app/src/pages/addProductPage.dart';
 import 'package:eshop_app/src/pages/cartPage.dart';
 import 'package:eshop_app/src/pages/homePage.dart';
@@ -12,14 +11,17 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EditProductPage extends StatelessWidget {
+  final String id;
+  EditProductPage({required this.id});
+
   final _ = Get.put(ServiceController(), permanent: true);
 
-  final TextEditingController titleC = TextEditingController();
-  final TextEditingController priceC = TextEditingController();
-  final TextEditingController discountC = TextEditingController();
-  final TextEditingController ratingC = TextEditingController();
-  final TextEditingController imageUrlC = TextEditingController();
-  final TextEditingController descriptionC = TextEditingController();
+  // final TextEditingController titleC = TextEditingController();
+  // final TextEditingController priceC = TextEditingController();
+  // final TextEditingController discountC = TextEditingController();
+  // final TextEditingController ratingC = TextEditingController();
+  // final TextEditingController imageUrlC = TextEditingController();
+  // final TextEditingController descriptionC = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,13 +106,15 @@ class EditProductPage extends StatelessWidget {
               child: Container(
                 width: Get.width,
                 decoration: BoxDecoration(
-                  color: Colors.grey,
+                  color: Colors.green,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: TextButton.icon(
                   onPressed: () async {
-                    _.addProductC.addProduct();
-                    Get.back();
+                    _.addProductC.updateProduct(id: id);
+                    // await Get.to(HomePage());
+
+                    print(id);
                   },
                   icon: Icon(
                     Icons.add,
@@ -118,35 +122,6 @@ class EditProductPage extends StatelessWidget {
                   ),
                   label: KText(
                     text: 'Update Product',
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            Center(
-              child: KText(
-                text: 'Or',
-                fontSize: 20,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Container(
-                width: 200,
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: TextButton.icon(
-                  onPressed: () async {
-                    Get.to(AddCatagoryPage());
-                  },
-                  icon: Icon(
-                    Icons.add,
-                    color: Colors.white,
-                  ),
-                  label: KText(
-                    text: 'Add Catagory',
                     color: Colors.white,
                   ),
                 ),

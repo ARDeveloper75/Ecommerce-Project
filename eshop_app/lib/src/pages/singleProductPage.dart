@@ -107,9 +107,9 @@ class SingleProductPage extends StatelessWidget {
                       radius: 65,
                     ),
                     Positioned(
-                      child: Image.asset(
-                        'assets/images/shoes_2.png',
-                        scale: 3,
+                      child: Image.network(
+                        '${item['imageUrl']}',
+                        scale: 11,
                       ),
                     ),
                     Positioned(

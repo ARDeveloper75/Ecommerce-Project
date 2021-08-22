@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   get:
+  flutter_material_color_picker:
   hexcolor:
   eva_icons_flutter:
   flutter_rating_bar:
@@ -25,6 +26,7 @@ dependencies:
   cloud_firestore:
   firebase_core:
   google_fonts:
+  flutter_svg:
 
 dev_dependencies:
   flutter_test:
@@ -39,6 +41,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/bottom_row.png
+    - assets/images/image_3.png
 
   # example:
   fonts:

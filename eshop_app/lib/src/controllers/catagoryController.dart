@@ -1,39 +1,29 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eshop_app/src/widgets/kText.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
-class AddProductController extends GetxController {
+class CatagoryController extends GetxController {
   final _firestore = FirebaseFirestore.instance;
   final title = ''.obs;
-  final price = ''.obs;
-  final discount = ''.obs;
-  final rating = ''.obs;
-  final imageUrl = ''.obs;
-  final description = ''.obs;
+  final image = ''.obs;
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getProducts() {
-    return _firestore.collection('products').snapshots();
-  }
-
-  // Product Add
-  void addProduct() async {
+  void addCatagorys() async {
+    Get.snackbar('Succeed', 'Catagory Added');
+    print('Catagory Added');
     await _firestore
-        .collection('products')
+        .collection('Catagorys')
         .add({
           'title': title.value,
-          'price': price.value,
-          'discount': discount.value,
-          'rating': rating.value,
-          'description': description.value,
+          'image': image.value,
         })
-        .then((value) => print('Product Added'))
-        .catchError((error) => print('Failed to added product: $error'));
+        .then((value) => print('Catagory Added'))
+        .catchError((error) => print('Failed to added Catagorys: $error'));
   }
-  // Deteled Product
 
-  void deleteProduct({required String id}) {
+// Deteled Catagory
+//
+  void deleteCatagorys({required String id}) async {
     Get.defaultDialog(
       title: '',
       middleText: 'are you want to remove this item?',
@@ -51,10 +41,10 @@ class AddProductController extends GetxController {
         // ignore: deprecated_member_use
         FlatButton(
           onPressed: () async {
-            await _firestore.collection('products').doc(id).delete();
+            await _firestore.collection('Catagorys').doc(id).delete();
             Get.back();
-            Get.snackbar('Succeed', 'Product Deleted');
-            print('product delete');
+            Get.snackbar('Succeed', 'Catagory Deleted');
+            print('Catagory delete');
           },
           child: KText(
             text: 'Confirm',

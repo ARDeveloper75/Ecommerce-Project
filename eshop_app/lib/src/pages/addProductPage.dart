@@ -1,3 +1,4 @@
+import 'package:eshop_app/src/pages/addCatagoryPage.dart';
 import 'package:eshop_app/src/pages/cartPage.dart';
 import 'package:eshop_app/src/pages/homePage.dart';
 import 'package:eshop_app/src/pages/productFavoritePage.dart';
@@ -133,6 +134,35 @@ class AddProductPage extends StatelessWidget {
                 ),
               ),
             ),
+            Center(
+              child: KText(
+                text: 'Or',
+                fontSize: 20,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Container(
+                width: 200,
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: TextButton.icon(
+                  onPressed: () async {
+                    Get.to(AddCatagoryPage());
+                  },
+                  icon: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                  label: KText(
+                    text: 'Add Catagory',
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -243,7 +273,7 @@ class AddProductPage extends StatelessWidget {
             ),
             // hintText: 'Enter your prodcut name',
             // hintStyle: GoogleFonts.lato(
-            //   color: HexColor('3D4584'),
+            // color: HexColor('3D4584'),
             // ),
             labelText: 'Enter your product',
             labelStyle: GoogleFonts.lato(

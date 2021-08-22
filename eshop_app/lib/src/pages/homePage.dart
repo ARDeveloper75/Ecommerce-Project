@@ -1,70 +1,32 @@
 import 'package:eshop_app/src/components/categoryComponent.dart';
 import 'package:eshop_app/src/components/productComponent.dart';
+import 'package:eshop_app/src/components/sidebarComponent.dart';
 import 'package:eshop_app/src/pages/addProductPage.dart';
 import 'package:eshop_app/src/pages/cartPage.dart';
+
 import 'package:eshop_app/src/pages/productFavoritePage.dart';
-import 'package:eshop_app/src/services/serviceController.dart';
-import 'package:eshop_app/src/widgets/kText.dart';
 
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-class HomePage extends StatelessWidget {
-  final _ = Get.put(ServiceController(), permanent: true);
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
 
+class _HomePageState extends State<HomePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            color: Colors.blue,
-            child: IconButton(
-              onPressed: () {
-                _.addProductC.addProduct();
-              },
-              icon: Icon(Icons.add),
-            ),
-          ),
-          Container(
-            color: Colors.green,
-            child: IconButton(
-              onPressed: () {
-                _.firebaseC.addCatagorys();
-              },
-              icon: Icon(
-                Icons.contact_page_outlined,
-              ),
-            ),
-          ),
-        ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            ListTile(
-              onTap: () {
-                Get.to(ProductFavoritePage());
-              },
-              title: KText(
-                text: 'Favorite Products',
-                fontSize: 20,
-              ),
-              leading: Icon(
-                EvaIcons.heart,
-                color: Colors.red,
-              ),
-            ),
-          ],
-        ),
-      ),
+      key: _scaffoldKey,
+      drawer: SidebarComponent(),
       appBar: AppBar(
         centerTitle: true,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () => _scaffoldKey.currentState!.openDrawer(),
           icon: Icon(Icons.format_align_center),
         ),
         title: Row(
@@ -113,6 +75,7 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
         child: Column(
           children: [
             CategoryComponent(),
@@ -177,10 +140,12 @@ class HomePage extends StatelessWidget {
                 size: 30,
               ),
             ),
-            Icon(
-              Icons.person_outline,
-              color: Colors.black54,
-              size: 30,
+            InkWell(
+              child: Icon(
+                Icons.person_outline,
+                color: Colors.black54,
+                size: 30,
+              ),
             ),
           ],
         ),

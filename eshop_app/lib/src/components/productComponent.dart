@@ -13,6 +13,20 @@ import 'package:hive_flutter/hive_flutter.dart';
 class ProductComponent extends StatelessWidget {
   final _ = Get.put(ServiceController(), permanent: true);
 
+  final color = [
+    Color(0xFF7089F7),
+    Color(0xFFBB45B1),
+    Color(0xFFF520A3),
+    Color(0xFFCBEE4B),
+    Color(0xFF8E1792),
+    Color(0xFF20F5EA),
+    Color(0xFFEEFF00),
+    Color(0xFF9B2337),
+    Color(0xFFC6F8E1),
+    Color(0xFF705257),
+    Color(0xFF3D0C14),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,6 +53,8 @@ class ProductComponent extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       final item = snapshot.data!.docs[index].data();
                       final id = snapshot.data!.docs[index].id;
+
+                      final colors = color[index];
                       final favoriteBox =
                           Hive.box<FavoriteProducts>('favoriteProducts');
                       return Padding(
@@ -51,7 +67,7 @@ class ProductComponent extends StatelessWidget {
                             ),
                           ),
                           onLongPress: () {
-                            _.firebaseC.deleteProduct(id: id);
+                            _.addProductC.deleteProduct(id: id);
                           },
                           child: Container(
                             height: 30,
@@ -67,8 +83,7 @@ class ProductComponent extends StatelessWidget {
                                 Positioned(
                                   top: 50,
                                   child: CircleAvatar(
-                                    backgroundColor:
-                                        Colors.blue.shade100.withOpacity(.80),
+                                    backgroundColor: colors.withOpacity(.50),
                                     radius: 65,
                                   ),
                                 ),
@@ -82,8 +97,7 @@ class ProductComponent extends StatelessWidget {
                                 Positioned(
                                   top: 59,
                                   child: CircleAvatar(
-                                    backgroundColor:
-                                        Colors.blue.shade100.withOpacity(.80),
+                                    backgroundColor: colors.withOpacity(.80),
                                     radius: 56,
                                   ),
                                 ),
@@ -91,7 +105,7 @@ class ProductComponent extends StatelessWidget {
                                   top: 57,
                                   child: Image.network(
                                     '${item['imageUrl']}',
-                                    scale: 17,
+                                    height: 120,
                                   ),
                                 ),
                                 Positioned(

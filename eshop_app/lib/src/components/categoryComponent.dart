@@ -39,7 +39,6 @@ class CategoryComponent extends StatelessWidget {
             child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
               stream: _.firebaseC.getCatagory(),
               builder: (context, snapshot) {
-                if (!snapshot.hasData) {}
                 return ListView.builder(
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
@@ -52,7 +51,7 @@ class CategoryComponent extends StatelessWidget {
                       padding: EdgeInsets.all(8.0),
                       child: GestureDetector(
                         onDoubleTap: () {
-                          _.firebaseC.deleteCatagorys(id: id);
+                          _.addCatagoryC.deleteCatagorys(id: id);
                         },
                         child: Container(
                           width: 120,

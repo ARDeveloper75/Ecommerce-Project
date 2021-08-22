@@ -8,6 +8,10 @@ class CatagoryController extends GetxController {
   final title = ''.obs;
   final image = ''.obs;
 
+  Stream<QuerySnapshot<Map<String, dynamic>>> getCatagory() {
+    return _firestore.collection('Catagorys').snapshots();
+  }
+
   void addCatagorys() async {
     Get.snackbar('Succeed', 'Catagory Added');
     print('Catagory Added');

@@ -8,8 +8,4 @@ class FirebaseController extends GetxController {
   Stream<QuerySnapshot<Map<String, dynamic>>> getProducts() {
     return _firestore.collection('products').snapshots();
   }
-
-  Stream<QuerySnapshot<Map<String, dynamic>>> getCatagory() {
-    return _firestore.collection('Catagorys').snapshots();
-  }
 }

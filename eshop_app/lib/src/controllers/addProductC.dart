@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eshop_app/src/pages/editProductPage.dart';
 import 'package:eshop_app/src/widgets/kText.dart';
 import 'package:flutter/material.dart';
 
@@ -58,6 +59,46 @@ class AddProductController extends GetxController {
           },
           child: KText(
             text: 'Confirm',
+            color: Colors.red,
+          ),
+        ),
+      ],
+    );
+  }
+  //update product
+
+  // update product
+  void updateProduct({required String id}) {
+    Get.defaultDialog(
+      title: '',
+      middleText: 'are you want to remove this item?',
+      actions: [
+        // ignore: deprecated_member_use
+        FlatButton(
+          onPressed: () {
+            Get.back();
+          },
+          child: KText(
+            text: 'Cancel',
+            color: Colors.grey,
+          ),
+        ),
+        // ignore: deprecated_member_use
+        FlatButton(
+          onPressed: () async {
+            await _firestore.collection('products').doc(id).update({
+              // 'title': title.value,
+              // 'price': price.value,
+              // 'discount': discount.value,
+              // 'rating': rating.value,
+              // 'description': description.value,
+            });
+            await Get.to(EditProductPage());
+            // Get.snackbar('Succeed', 'Product Update');
+            print(' => update Product page');
+          },
+          child: KText(
+            text: 'Update Product',
             color: Colors.red,
           ),
         ),

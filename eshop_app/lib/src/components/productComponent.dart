@@ -41,6 +41,7 @@ class ProductComponent extends StatelessWidget {
                     return placeHolder();
                   } else {}
                   return GridView.builder(
+                    physics: BouncingScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       mainAxisSpacing: 2,
@@ -67,7 +68,7 @@ class ProductComponent extends StatelessWidget {
                             ),
                           ),
                           onLongPress: () {
-                            _.addProductC.deleteProduct(id: id);
+                            _.addProductC.updateProduct(id: id);
                           },
                           child: Container(
                             height: 30,

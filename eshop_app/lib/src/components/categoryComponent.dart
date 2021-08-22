@@ -37,15 +37,16 @@ class CategoryComponent extends StatelessWidget {
           Container(
             height: 60,
             child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-              stream: _.firebaseC.getCatagory(),
+              stream: _.addCatagoryC.getCatagory(),
               builder: (context, snapshot) {
                 return ListView.builder(
+                  physics: BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   primary: false,
                   itemCount: snapshot.data!.size,
                   itemBuilder: (BuildContext context, int index) {
-                    final item = snapshot.data!.docs[index].data();
+                    final item = snapshot.data!.docs[index];
                     final id = snapshot.data!.docs[index].id;
                     return Padding(
                       padding: EdgeInsets.all(8.0),
